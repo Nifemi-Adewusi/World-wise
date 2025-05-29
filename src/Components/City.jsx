@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import styles from "./City.module.css";
+import {useParams, useSearchParams} from "react-router-dom";
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
     day: "numeric",
@@ -10,6 +11,12 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 function City() {
+  const X = useParams();
+  const {id} = X;
+  const [searchParam, setSearchParam] = useSearchParams();
+  const lat = searchParam.get("lat");
+  const lng = searchParam.get("lng");
+ 
   // TEMP DATA
   const currentCity = {
     cityName: "Lisbon",
@@ -21,6 +28,7 @@ function City() {
   const { cityName, emoji, date, notes } = currentCity;
 
   return (
+   
     // <div className={styles.city}>
     //   <div className={styles.row}>
     //     <h6>City name</h6>
@@ -56,7 +64,12 @@ function City() {
     //     {/* <ButtonBack /> */}
     //   </div>
     // </div>
-    <h1>City</h1>
+    <>
+    
+    <h1>City {id}</h1>
+    <h2>{lat}:{lng}</h2>
+    </>
+
   );
 }
 

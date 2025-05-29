@@ -64,14 +64,13 @@ function CityItem({ city, deleteCity }) {
  console.log(city)
   const {lat, lng} = position;
   // console.log(lat, lng)
-  return <li >
-    <Link to = {`${id}`} style = {mimicStyles} className = {styles.CityItem}>
+  return <li>
+    <Link to = {`${id}?lat=${lat}&lng=${lng}`} style = {mimicStyles} className = {styles.CityItem}>
     <span style = {emojiStyle}   className={styles.emoji}>{emoji}</span>
     <h3 style = {countryName} className = {styles.name}>{cityName}</h3>
     <time style = {dateStyles} className = {styles.date}>{formatDate(date)} </time>
     <button style = {deleteBtn} onClick = {()=> deleteCity(id)} className = {styles.deleteBtn}>&times;</button>
     </Link>
-
   </li>
 }
 export default CityItem;
