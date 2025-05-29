@@ -7,6 +7,7 @@ import AppLayout from "./Pages/AppLayout";
 import Login from "./Pages/Login";
 import CityList from "./Components/CityList";
 import CountryList from './Components/CountryList';
+import City from './Components/City';
 import { useState, useEffect } from "react";
 /* eslint-disable react/prop-types */
 
@@ -51,6 +52,7 @@ function App() {
             path="cities"
             element={<CityList deleteCity = {deleteCity} isLoading={isLoading} cities={cities} />}
           />
+          <Route path = "cities/:id" element = {<City/>}/>
           <Route path="countries" element={<CountryList cities = {cities} isLoading = {isLoading}/>} />
           <Route path="form" element={<p>Form</p>} />
         </Route>

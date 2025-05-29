@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import styles from './CityItem.module.css'
+import {Link} from 'react-router-dom';
 // import emojiFlags from 'emoji-flags';
 
 // function getFlagEmoji(countryCode) {
@@ -29,20 +30,31 @@ const formatDate = (date) =>
     // borderLeftColor:"2px solid green"
     // borderColor:"2px solid green"
     marginBottom:"3px",
-    borderLeft: "5px solid green"
+    borderLeft: "5px solid green",
+    textDecoration:"none",
+    backgroundColor:"#2C2D2D",
+    padding:"5px"
   }
 
   const emojiStyle = {
-    marginLeft:"4px"
+    marginLeft:"4px",
+    color:"white"
+
   }
 
   const countryName = {
     marginLeft: "15px",
     marginTop: "3px",
+    textDecoration:"none",
+    color:"white"
   }
 const deleteBtn = {
   marginTop:"2px",
   marginLeft:"2px"
+}
+
+const dateStyles  = {
+  color:"white",
 }
 
 
@@ -52,11 +64,14 @@ function CityItem({ city, deleteCity }) {
  console.log(city)
   const {lat, lng} = position;
   // console.log(lat, lng)
-  return <li style = {mimicStyles} className = {styles.CityItem}>
+  return <li >
+    <Link to = {`${id}`} style = {mimicStyles} className = {styles.CityItem}>
     <span style = {emojiStyle}   className={styles.emoji}>{emoji}</span>
     <h3 style = {countryName} className = {styles.name}>{cityName}</h3>
-    <time className = {styles.date}>{formatDate(date)} </time>
+    <time style = {dateStyles} className = {styles.date}>{formatDate(date)} </time>
     <button style = {deleteBtn} onClick = {()=> deleteCity(id)} className = {styles.deleteBtn}>&times;</button>
-  </li>;
+    </Link>
+
+  </li>
 }
 export default CityItem;
