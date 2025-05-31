@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import styles from './CountryList.module.css';
 import CountryItem from './CountryItem';
-import Spinner from './Spinner'
-import Message from './Message'
+import Spinner from './Spinner';
+import Message from './Message';
 function CountryList({cities, isLoading}) {
     // console.log(cities)
     if(!cities.length) return <Message message = "No Countries Added Yet." />
@@ -21,7 +21,7 @@ function CountryList({cities, isLoading}) {
     if(isLoading) return <Spinner/>
     
     return (
-        <div className = {styles.countriesList}>
+        <div className = {styles.countryList}>
           {uniqueCountries.map(country=> <CountryItem key = {country.id} country = {country}/>)}
         </div>
     )
