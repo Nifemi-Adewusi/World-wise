@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import styles from './CityItem.module.css'
-import {Link} from 'react-router-dom';
+import { useCities } from "../contexts/Context";
+import styles from "./CityItem.module.css";
+import { Link } from "react-router-dom";
 // import emojiFlags from 'emoji-flags';
 
 // function getFlagEmoji(countryCode) {
@@ -16,61 +17,77 @@ const formatDate = (date) =>
     // weekday: "long",
   }).format(new Date(date));
 
-  // function getFlagEmoji(countryCode) {
-  //   const codePoints = countryCode
-  //     .toUpperCase()
-  //     .split('')
-  //     .map(char => 127397 + char.charCodeAt());
-  //   return String.fromCodePoint(...codePoints);
-  // }
-  
+// function getFlagEmoji(countryCode) {
+//   const codePoints = countryCode
+//     .toUpperCase()
+//     .split('')
+//     .map(char => 127397 + char.charCodeAt());
+//   return String.fromCodePoint(...codePoints);
+// }
 
-  const mimicStyles = {
-    display:"flex",
-    // borderLeftColor:"2px solid green"
-    // borderColor:"2px solid green"
-    marginBottom:"3px",
-    borderLeft: "5px solid green",
-    textDecoration:"none",
-    backgroundColor:"#2C2D2D",
-    padding:"5px"
-  }
+const mimicStyles = {
+  display: "flex",
+  // borderLeftColor:"2px solid green"
+  // borderColor:"2px solid green"
+  marginBottom: "3px",
+  borderLeft: "5px solid green",
+  textDecoration: "none",
+  backgroundColor: "#2C2D2D",
+  padding: "5px",
+};
 
-  const emojiStyle = {
-    marginLeft:"4px",
-    color:"white"
+const emojiStyle = {
+  marginLeft: "4px",
+  color: "white",
+};
 
-  }
-
-  const countryName = {
-    marginLeft: "15px",
-    marginTop: "3px",
-    textDecoration:"none",
-    color:"white"
-  }
+const countryName = {
+  marginLeft: "15px",
+  marginTop: "3px",
+  textDecoration: "none",
+  color: "white",
+};
 const deleteBtn = {
-  marginTop:"2px",
-  marginLeft:"2px"
-}
+  marginTop: "2px",
+  marginLeft: "2px",
+};
 
-const dateStyles  = {
-  color:"white",
-}
+const dateStyles = {
+  color: "white",
+};
 
-
-function CityItem({ city, deleteCity }) {
+function CityItem({ city }) {
+  const { deleteCity } = useCities();
   // console.log(city)
-  const {cityName, country, date, emoji, position, id} = city;
- console.log(city)
-  const {lat, lng} = position;
+  const { cityName, country, date, emoji, position, id } = city;
+  console.log(city);
+  const { lat, lng } = position;
   // console.log(lat, lng)
-  return <li>
-    <Link to = {`${id}?lat=${lat}&lng=${lng}`} style = {mimicStyles} className = {styles.CityItem}>
-    <span style = {emojiStyle}   className={styles.emoji}>{emoji}</span>
-    <h3 style = {countryName} className = {styles.name}>{cityName}</h3>
-    <time style = {dateStyles} className = {styles.date}>{formatDate(date)} </time>
-    <button style = {deleteBtn} onClick = {()=> deleteCity(id)} className = {styles.deleteBtn}>&times;</button>
-    </Link>
-  </li>
+  return (
+    <li>
+      <Link
+        to={`${id}?lat=${lat}&lng=${lng}`}
+        style={mimicStyles}
+        className={styles.CityItem}
+      >
+        <span style={emojiStyle} className={styles.emoji}>
+          {emoji}
+        </span>
+        <h3 style={countryName} className={styles.name}>
+          {cityName}
+        </h3>
+        <time style={dateStyles} className={styles.date}>
+          {formatDate(date)}{" "}
+        </time>
+        <button
+          style={deleteBtn}
+          onClick={() => deleteCity(id)}
+          className={styles.deleteBtn}
+        >
+          &times;
+        </button>
+      </Link>
+    </li>
+  );
 }
 export default CityItem;
