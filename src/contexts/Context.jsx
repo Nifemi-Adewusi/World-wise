@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 
 const CitiesContext = createContext();
 const BASE_URL = "http://localhost:8000/cities";
@@ -39,4 +39,12 @@ function Context({ children }) {
   );
 }
 
-export { Context, CitiesContext };
+function useCities() {
+  const context = useContext(Context);
+  if (context === undefined)
+    throw new Error("CitiesContext was used outside the city provider");
+  return context;
+}
+
+// eslint-disable-next-line react-refresh/only-export-components
+export { useCities, CitiesContext };
