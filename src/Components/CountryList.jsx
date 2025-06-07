@@ -3,7 +3,9 @@ import styles from './CountryList.module.css';
 import CountryItem from './CountryItem';
 import Spinner from './Spinner';
 import Message from './Message';
-function CountryList({cities, isLoading}) {
+import {useCities} from '../contexts/Context'
+function CountryList() {
+  const {cities, isLoading} = useCities()
     // console.log(cities)
     if(!cities.length) return <Message message = "No Countries Added Yet." />
     // const uniqueCountries = set()
