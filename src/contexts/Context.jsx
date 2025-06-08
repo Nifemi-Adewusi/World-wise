@@ -6,7 +6,7 @@ const BASE_URL = "http://localhost:8000/cities";
 function Context({ children }) {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+   const [currentCity, setCurrentCity] = useState({})
   const deleteCity = function (id) {
     const updatedCity = cities.filter((city) => city.id !== id);
     setCities(updatedCity);
@@ -30,9 +30,25 @@ function Context({ children }) {
       setIsLoading(false);
     }
   }, []);
+  
+  async function getCity(id){
+    try{
+       setIsLoading(true);
+       const res = await fetch(`${BASE_URL}/cities${id}`);
+       const data = await res.json();
+       setCurrentCity(data);
+
+    }
+    catch(err){
+      alert(`${err.message} error occurred`);
+    } finally{
+      setIsLoading(false);
+    }
+  }
+
   return (
     <CitiesContext.Provider
-      value={{ cities, setCities, isLoading, deleteCity }}
+      value={{ cities, setCities, isLoading, deleteCity, getCity, currentCity }}
     >
       {children}
     </CitiesContext.Provider>
