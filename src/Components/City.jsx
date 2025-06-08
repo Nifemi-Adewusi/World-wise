@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import styles from "./City.module.css";
 import {useParams, useSearchParams} from "react-router-dom";
+import {useCities} from '../contexts/Context'
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
     day: "numeric",
@@ -13,17 +14,18 @@ const formatDate = (date) =>
 function City() {
   const X = useParams();
   const {id} = X;
-  const [searchParam, setSearchParam] = useSearchParams();
-  const lat = searchParam.get("lat");
-  const lng = searchParam.get("lng");
+  const {getCity, currentCity} =  useCities();
+  // const [searchParam, setSearchParam] = useSearchParams();
+  // const lat = searchParam.get("lat");
+  // const lng = searchParam.get("lng");
  
   // TEMP DATA
-  const currentCity = {
-    cityName: "Lisbon",
-    emoji: "🇵🇹",
-    date: "2027-10-31T15:59:59.138Z",
-    notes: "My favorite city so far!",
-  };
+  // const currentCity = {
+  //   cityName: "Lisbon",
+  //   emoji: "🇵🇹",
+  //   date: "2027-10-31T15:59:59.138Z",
+  //   notes: "My favorite city so far!",
+  // };
 
   const { cityName, emoji, date, notes } = currentCity;
 
