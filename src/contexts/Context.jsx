@@ -40,11 +40,11 @@ function Context({ children }) {
 }
 
 function useCities() {
-  const context = useContext(Context);
+  const context = useContext(CitiesContext);
   if (context === undefined)
     throw new Error("CitiesContext was used outside the city provider");
   return context;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export { useCities, CitiesContext };
+export { useCities, Context };
