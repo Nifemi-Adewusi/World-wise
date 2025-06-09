@@ -57,14 +57,14 @@ const dateStyles = {
 };
 
 function CityItem({ city }) {
-  const { deleteCity } = useCities();
+  const { deleteCity, setCurrentCity } = useCities();
   // console.log(city)
   const { cityName, country, date, emoji, position, id } = city;
   console.log(city);
   const { lat, lng } = position;
   // console.log(lat, lng)
   return (
-    <li>
+    <li onClick= {()=> setCurrentCity(city)}>
       <Link
         to={`${id}?lat=${lat}&lng=${lng}`}
         style={mimicStyles}
