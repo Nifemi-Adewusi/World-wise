@@ -37,7 +37,6 @@ function Context({ children }) {
        const res = await fetch(`${BASE_URL}/cities${id}`);
        const data = await res.json();
        setCurrentCity(data);
-
     }
     catch(err){
       alert(`${err.message} error occurred`);
@@ -48,7 +47,7 @@ function Context({ children }) {
 
   return (
     <CitiesContext.Provider
-      value={{ cities, setCities, isLoading, deleteCity, getCity, currentCity }}
+      value={{ cities, setCities, isLoading, deleteCity, getCity, setCurrentCity, currentCity }}
     >
       {children}
     </CitiesContext.Provider>
