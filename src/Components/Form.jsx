@@ -2,10 +2,11 @@
 /* eslint-disable no-unused-vars */
 
 import { useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./Form.module.css";
-import Button from './Button';
+import Button from "./Button";
+import { BackButton } from "./BackButton";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -60,12 +61,9 @@ function Form() {
 
       <div className={styles.buttons}>
         {/* <button>Add</button> */}
-        <Button type = "primary">Add</Button>
+        <Button type="primary">Add</Button>
         {/* <button>&larr; Back</button> */}
-        <Button type = "back" onClick = {(e)=>{
-          e.preventDefault();
-          navigate(-1)
-        } }> &larr; Back</Button>
+        <BackButton />
       </div>
     </form>
   );
