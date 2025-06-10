@@ -64,7 +64,7 @@ function CityItem({ city }) {
   const { lat, lng } = position;
   // console.log(lat, lng)
   return (
-    <li onClick= {()=> setCurrentCity(city)}>
+    <li onClick={() => setCurrentCity(city)}>
       <Link
         to={`${id}?lat=${lat}&lng=${lng}`}
         style={mimicStyles}
