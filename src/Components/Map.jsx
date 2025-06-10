@@ -11,6 +11,7 @@ function Map() {
   const lng = searchParams.get("lng");
   const [position, setPosition] = useState([40, 0]);
   const { cities } = useCities();
+  console.log(cities);
   return (
     <div className={styles.mapContainer} onClick={() => navigate("form")}>
       <MapContainer
@@ -24,7 +25,13 @@ function Map() {
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
         {cities.map((city) => (
-          <Marker key={city.id} position={position}>
+          // console.log(city.position.lat);
+          // {console.log()
+          // }
+          <Marker
+            key={city.id}
+            position={[city.position.lat, city.position.lng]}
+          >
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
