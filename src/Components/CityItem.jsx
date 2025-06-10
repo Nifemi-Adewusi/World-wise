@@ -57,7 +57,7 @@ const dateStyles = {
 };
 
 function CityItem({ city }) {
-  const { deleteCity, setCurrentCity } = useCities();
+  const { deleteCity, setCurrentCity, currentCity } = useCities();
   // console.log(city)
   const { cityName, country, date, emoji, position, id } = city;
   console.log(city);
@@ -68,7 +68,9 @@ function CityItem({ city }) {
       <Link
         to={`${id}?lat=${lat}&lng=${lng}`}
         style={mimicStyles}
-        className={styles.CityItem}
+        className={`${styles.CityItem} ${
+          id === currentCity.id ? styles["cityItem--active"] : ""
+        }`}
       >
         <span style={emojiStyle} className={styles.emoji}>
           {emoji}
