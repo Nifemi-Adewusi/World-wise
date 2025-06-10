@@ -5,20 +5,26 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useState } from "react";
 import { useCities } from "../contexts/Context";
 function Map() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  // const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
+  // const mapLat = searchParams.get("lat");
+  // const mapLng = searchParams.get("lng");
+  // console.log(mapLat, mapLng);
   const [position, setPosition] = useState([40, 0]);
-  const { cities } = useCities();
+  const { cities, currentPosition } = useCities();
+  console.log(currentPosition);
   console.log(cities);
   return (
     <div className={styles.mapContainer} onClick={() => navigate("form")}>
       <MapContainer
         className={styles.map}
-        center={position}
-        zoom={13}
+        center={currentPosition}
+        // center={currentPosition}
+        zoom={10}
         scrollWheelZoom={true}
+        dragging={true}
+        doubleClickZoom={true}
+        zoomControl={true}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -30,7 +36,8 @@ function Map() {
             position={[city.position.lat, city.position.lng]}
           >
             <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              <span>{city.emoji}</span>
+              <span>{city.cityName}</span>
             </Popup>
           </Marker>
         ))}
