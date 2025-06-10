@@ -25,9 +25,6 @@ function Map() {
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
         {cities.map((city) => (
-          // console.log(city.position.lat);
-          // {console.log()
-          // }
           <Marker
             key={city.id}
             position={[city.position.lat, city.position.lng]}
