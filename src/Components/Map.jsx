@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import styles from "./Map.module.css";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { MapContainer, TileLayer, Marker, Popup,useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup,useMap, useMapEvents } from "react-leaflet";
 import { useState } from "react";
 import { useCities } from "../contexts/Context";
 function Map() {
+  const navigate = useNavigate();
   // const [searchParams, setSearchParams] = useSearchParams();
   // const mapLat = searchParams.get("lat");
   // const mapLng = searchParams.get("lng");
