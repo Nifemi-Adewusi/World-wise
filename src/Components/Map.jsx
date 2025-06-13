@@ -68,7 +68,10 @@ function DetectClick() {
   const navigate = useNavigate();
 
   useMapEvents({
-    click: () => navigate("form"),
+    click: (e) => {
+      console.log(e);
+      navigate(`form?${e.latlng.lat},${e.latlng.lng}`);
+    },
   });
 
   return null;
