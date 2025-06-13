@@ -27,22 +27,24 @@ function Map() {
 
   useEffect(() => {
     if (geolocationPosition) {
-      console.log(geolocationPosition);
+      // console.log(geolocationPosition);
       setPosition(geolocationPosition);
     }
   }, [geolocationPosition]);
 
   return (
     <div className={styles.mapContainer}>
-      <Button
-        type="position"
-        onClick={() => {
-          console.log("Getting current position...");
-          getPosition();
-        }}
-      >
-        {isLoadingPosition ? "Loading..." : "Get Current Position"}
-      </Button>
+      {!geolocationPosition && (
+        <Button
+          type="position"
+          onClick={() => {
+            console.log("Getting current position...");
+            getPosition();
+          }}
+        >
+          {isLoadingPosition ? "Loading..." : "Get Current Position"}
+        </Button>
+      )}
       <MapContainer
         className={styles.map}
         center={position}
