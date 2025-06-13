@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import styles from "./Map.module.css";
 import { useNavigate } from "react-router-dom";
+import useGeolocation from "../hooks/useGeolocation";
 import {
   MapContainer,
   TileLayer,
@@ -9,19 +10,42 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCities } from "../contexts/Context";
+import Button from "./Button";
 
 function Map() {
   const navigate = useNavigate();
-  const [position, setPosition] = useState([40, 0]);
   const { cities, currentPosition } = useCities();
+
+  const [position, setPosition] = useState([40, 0] || currentPosition);
+  const {
+    isLoading: isLoadingPosition,
+    getPosition,
+    position: geolocationPosition,
+  } = useGeolocation();
+
+  useEffect(() => {
+    if (geolocationPosition) {
+      console.log(geolocationPosition);
+      setPosition(geolocationPosition);
+    }
+  }, [geolocationPosition]);
 
   return (
     <div className={styles.mapContainer}>
+      <Button
+        type="position"
+        onClick={() => {
+          console.log("Getting current position...");
+          getPosition();
+        }}
+      >
+        {isLoadingPosition ? "Loading..." : "Get Current Position"}
+      </Button>
       <MapContainer
         className={styles.map}
-        center={currentPosition}
+        center={position}
         zoom={10}
         scrollWheelZoom={true}
         dragging={true}
@@ -44,7 +68,7 @@ function Map() {
           </Marker>
         ))}
 
-        <ChangeCenter position={currentPosition} />
+        <ChangeCenter position={position} />
         <DetectClick />
         <Marker position={position}>
           <Popup>
