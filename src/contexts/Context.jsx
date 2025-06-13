@@ -8,6 +8,7 @@ function Context({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [currentCity, setCurrentCity] = useState({});
   const [currentPosition, setCurrentPosition] = useState([40, 0]);
+  const [currentCountry, setCurrentCountry] = useState("");
   const deleteCity = function (id) {
     const updatedCity = cities.filter((city) => city.id !== id);
     setCities(updatedCity);
@@ -58,6 +59,8 @@ function Context({ children }) {
         currentCity,
         currentPosition,
         setCurrentPosition,
+        currentCountry,
+        setCurrentCountry,
       }}
     >
       {children}
