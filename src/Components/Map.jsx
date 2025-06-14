@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import styles from "./Map.module.css";
 import { useNavigate } from "react-router-dom";
 import useGeolocation from "../hooks/useGeolocation";
+// import {useUrlPosition} from '../hooks/usePosition'
 import {
   MapContainer,
   TileLayer,
@@ -13,10 +15,24 @@ import {
 import { useState, useEffect } from "react";
 import { useCities } from "../contexts/Context";
 import Button from "./Button";
-
+// import {useSearchParams} from 'react-router-dom';
 function Map() {
   const navigate = useNavigate();
+  // const [lat, lng] = useUrlPosition();
+  // console.log(lat)
   const { cities, currentPosition } = useCities();
+//  const [searchParams] = useSearchParams();
+//  const lat = searchParams.get("lat");
+//  const lng = searchParams.get("lng");
+
+// const [newLat, newLng]
+
+const [pos, setPos] = useState([]);
+
+console.log(pos);
+
+
+
 
   const [position, setPosition] = useState([40, 0] || currentPosition);
   const {
@@ -26,11 +42,20 @@ function Map() {
   } = useGeolocation();
 
   useEffect(() => {
+
+
     if (geolocationPosition) {
       // console.log(geolocationPosition);
       setPosition(geolocationPosition);
     }
-  }, [geolocationPosition]);
+    // if(lat !==null && lng !==null){
+    //   setPosition(coords);
+    // }
+
+    if(pos.length){
+      setPosition(pos);
+    }
+  }, [geolocationPosition, pos]);
 
   return (
     <div className={styles.mapContainer}>
@@ -71,7 +96,7 @@ function Map() {
         ))}
 
         <ChangeCenter position={position} />
-        <DetectClick />
+        <DetectClick setPos = {setPos} />
         <Marker position={position}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
@@ -90,13 +115,15 @@ function ChangeCenter({ position }) {
   return null;
 }
 
-function DetectClick() {
+function DetectClick({setPos}) {
   const navigate = useNavigate();
 
   useMapEvents({
     click: (e) => {
       console.log(e);
-      navigate(`form?${e.latlng.lat},${e.latlng.lng}`);
+      setPos([e.latlng.lat, e.latlng.lng])
+      navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`);
+
     },
   });
 
