@@ -27,7 +27,8 @@ function Form() {
   const [notes, setNotes] = useState("");
   const navigate = useNavigate();
   const [isLoadingGeoCoding, setIsLoadingGeoCoding] = useState(false);
-  const [emoji, setEmoji] = useState("")
+  const [emoji, setEmoji] = useState("");
+  const [error, setError] = useState("");
 
   // function preventDefaultandNavigate(e){
   //   console.log("Working Ish")
@@ -44,9 +45,9 @@ function Form() {
           );
           const data = await res.json();
           console.log(data);
-          setCityName(data.city || data.locality|| "");
+          setCityName(data.city || data.locality || "");
           setCountry(data.countryName);
-          setEmoji(convertToEmoji(data.countryCode))
+          setEmoji(convertToEmoji(data.countryCode));
         } catch (error) {
           console.log(error.message);
         } finally {
