@@ -8,7 +8,8 @@ import styles from "./Form.module.css";
 import Button from "./Button";
 import { BackButton } from "./BackButton";
 import { useUrlPosition } from "../hooks/usePosition";
-
+import Message from "./Message";
+import Spinner from "./Spinner";
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
     .toUpperCase()
@@ -37,6 +38,7 @@ function Form() {
   // }
   useEffect(
     function () {
+      if (!lat && !lng) return;
       async function fetchCityData() {
         try {
           setIsLoadingGeoCoding(true);
@@ -45,11 +47,17 @@ function Form() {
           );
           const data = await res.json();
           console.log(data);
+          if (!data.countryCode) {
+            throw new Error(
+              "That Doesn't seem to be a city, please click somewhere else"
+            );
+          }
           setCityName(data.city || data.locality || "");
           setCountry(data.countryName);
           setEmoji(convertToEmoji(data.countryCode));
         } catch (error) {
           console.log(error.message);
+          setError(error.message);
         } finally {
           setIsLoadingGeoCoding(false);
         }
@@ -58,6 +66,13 @@ function Form() {
     },
     [lat, lng]
   );
+
+  if (error) {
+    return <Message message={error} />;
+  }
+  if (isLoadingGeoCoding) {
+    return <Spinner />;
+  }
   return (
     <form className={styles.form}>
       <div className={styles.row}>
