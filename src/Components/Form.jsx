@@ -33,9 +33,11 @@ function Form() {
   const [notes, setNotes] = useState("");
   const navigate = useNavigate();
   const [isLoadingGeoCoding, setIsLoadingGeoCoding] = useState(false);
+  const [countryCode, setCountryCode] = useState("")
   const [emoji, setEmoji] = useState("");
   const [error, setError] = useState("");
   const {createCity} = useCities();
+
 
   // function preventDefaultandNavigate(e){
   //   console.log("Working Ish")
@@ -51,10 +53,14 @@ function Form() {
       country,
       date,
       notes,
-      position: {lat, lng}
+      position: {lat, lng},
+      emoji: convertToEmoji(countryCode)
     }
     // console.log(newCity)
     createCity(newCity)
+    setCityName("");
+    setDate("");
+    setNotes("")
   }
   useEffect(
     function () {
@@ -67,6 +73,9 @@ function Form() {
           );
           const data = await res.json();
           console.log(data);
+          if(data.countryCode){
+            setCountryCode(data.countryCode)
+          }
           if (!data.countryCode) {
             throw new Error(
               "That Doesn't seem to be a city, please click somewhere else"
