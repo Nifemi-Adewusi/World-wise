@@ -10,6 +10,7 @@ import { BackButton } from "./BackButton";
 import { useUrlPosition } from "../hooks/usePosition";
 import Message from "./Message";
 import Spinner from "./Spinner";
+import {useCities} from '../contexts/Context.jsx';
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -34,6 +35,7 @@ function Form() {
   const [isLoadingGeoCoding, setIsLoadingGeoCoding] = useState(false);
   const [emoji, setEmoji] = useState("");
   const [error, setError] = useState("");
+  const {createCity} = useCities();
 
   // function preventDefaultandNavigate(e){
   //   console.log("Working Ish")
@@ -51,7 +53,8 @@ function Form() {
       notes,
       position: {lat, lng}
     }
-    console.log(newCity)
+    // console.log(newCity)
+    createCity(newCity)
   }
   useEffect(
     function () {
@@ -84,8 +87,6 @@ function Form() {
     [lat, lng]
   );
 
- 
-
   if (error) {
     return <Message message={error} />;
   }
@@ -97,7 +98,7 @@ function Form() {
   }
 
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit = {handleSubmit}>
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
