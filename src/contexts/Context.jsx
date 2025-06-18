@@ -9,9 +9,21 @@ function Context({ children }) {
   const [currentCity, setCurrentCity] = useState({});
   const [currentPosition, setCurrentPosition] = useState([40, 0]);
   const [currentCountry, setCurrentCountry] = useState("");
-  const deleteCity = function (id) {
-    const updatedCity = cities.filter((city) => city.id !== id);
-    setCities(updatedCity);
+  const deleteCity = async function (id) {
+    try{
+      setIsLoading(true);
+      const res = await fetch(`${BASE_URL}/${id}`, {
+        method: "DELETE",
+      })
+      if(!res.ok) throw new Error("Failed to delete city");
+      const updatedCity = cities.filter((city) => city.id !== id);
+      setCities(updatedCity);
+    } catch(err){
+      alert(`${err.message} error occured`);
+    } finally{
+      setIsLoading(false);
+    }
+  
   };
   useEffect(function () {
     try {
