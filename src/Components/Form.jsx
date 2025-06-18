@@ -14,7 +14,7 @@ import {useCities} from '../contexts/Context.jsx';
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import {}
+// import {useNavigate} from "react-router-dom"
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
     .toUpperCase()
@@ -36,8 +36,8 @@ function Form() {
   const [countryCode, setCountryCode] = useState("")
   const [emoji, setEmoji] = useState("");
   const [error, setError] = useState("");
-  const {createCity} = useCities();
-
+  const {createCity, isLoading} = useCities();
+  // const navigate = useNavigate();
 
   // function preventDefaultandNavigate(e){
   //   console.log("Working Ish")
@@ -45,7 +45,7 @@ function Form() {
   //   navigate(-1);
   // }
 
-  function handleSubmit(e){
+  async function handleSubmit(e){
     e.preventDefault();
     if(!cityName || !date) return;
     const newCity = {
@@ -57,10 +57,11 @@ function Form() {
       emoji: convertToEmoji(countryCode)
     }
     // console.log(newCity)
-    createCity(newCity)
-    setCityName("");
-    setDate("");
-    setNotes("")
+    await createCity(newCity)
+    navigate("/layout/cities")
+    // setCityName("");
+    // setDate("");
+    // setNotes("")
   }
   useEffect(
     function () {
@@ -107,7 +108,7 @@ function Form() {
   }
 
   return (
-    <form className={styles.form} onSubmit = {handleSubmit}>
+    <form className={`${styles.form} ${isLoading ? styles.loading : ""}`} onSubmit = {handleSubmit}>
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
