@@ -89,7 +89,10 @@ function CityItem({ city }) {
         </time>
         <button
           style={deleteBtn}
-          onClick={() => deleteCity(id)}
+          onClick={(e) => {
+             e.preventDefault();
+             deleteCity(id);
+          }}
           className={styles.deleteBtn}
         >
           &times;
