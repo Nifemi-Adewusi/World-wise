@@ -29,4 +29,4 @@ function CountryList() {
     )
 }
 
-export default CountryList
+export default CountryList;
