@@ -57,8 +57,13 @@ const dateStyles = {
 };
 
 function CityItem({ city }) {
-  const { deleteCity, setCurrentCity, currentCity, setCurrentPosition } =
-    useCities();
+  const {
+    deleteCity,
+    dispatch,
+    // setCurrentCity,
+    currentCity,
+    // setCurrentPosition,
+  } = useCities();
   // console.log(city)
   const { cityName, country, date, emoji, position, id } = city;
   console.log(city);
@@ -67,8 +72,10 @@ function CityItem({ city }) {
   return (
     <li
       onClick={() => {
-        setCurrentCity(city);
-        setCurrentPosition([lat, lng]);
+        // setCurrentCity(city);
+        dispatch({ type: "updateCurrentCity", payload: city });
+        // setCurrentPosition([lat, lng]);
+        dispatch({ type: "updateCurrentPosition", payload: [lat, lng] });
       }}
     >
       <Link
@@ -90,8 +97,8 @@ function CityItem({ city }) {
         <button
           style={deleteBtn}
           onClick={(e) => {
-             e.preventDefault();
-             deleteCity(id);
+            e.preventDefault();
+            deleteCity(id);
           }}
           className={styles.deleteBtn}
         >
