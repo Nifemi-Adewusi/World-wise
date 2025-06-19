@@ -34,6 +34,8 @@ function reducer(state, action) {
     // return null;
     case "currentCity/set":
       return { ...state, currentCity: action.payload };
+    case "updateCurrentPosition":
+      return { ...state, currentPosition: action.payload };
     default:
       throw new Error(`Unknown action type: ${action.type}`);
   }
@@ -89,7 +91,7 @@ function Context({ children }) {
       alert(`${err.message} error occurred`);
     } finally {
       // setIsLoading(false);
-      dispatch({ type: "startLoading" });
+      dispatch({ type: "stopLoading" });
     }
   }, []);
 
@@ -105,7 +107,7 @@ function Context({ children }) {
       alert(`${err.message} error occurred`);
     } finally {
       // setIsLoading(false);
-      dispatch({ type: "startLoading" });
+      dispatch({ type: "stopLoading" });
     }
   }
 
