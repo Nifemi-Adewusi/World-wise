@@ -1,11 +1,51 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext } from "react";
+import { createContext, useContext, useReducer } from "react";
+
+const FAKE_USER = {
+  name: "Jack",
+  email: "jack@example.com",
+  password: "qwerty",
+  avatar: "https://i.pravatar.cc/100?u=zz",
+};
 
 const AuthContext = createContext();
 
+const initialState = {
+  // email: "",
+  // password: "",
+  // isLoggedIn: false,
+  user: null,
+  isAuthenticated: false,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "login":
+      return { ...state, isAuthenticated: true, user: action.payload };
+
+      break;
+
+    default:
+      break;
+  }
+}
 function AuthProvider({ children }) {
-  return <AuthContext.Provider>{children}</AuthContext.Provider>;
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const { user, isAuthenticated } = state;
+
+  const login = function (email, password) {
+    if (email === FAKE_USER.email && password === FAKE_USER.password) {
+      dispatch({ type: "login" });
+    }
+  };
+  const logout = function () {};
+  return (
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 const useAuth = function () {
