@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./Login.module.css";
 import { useState } from "react";
 import PageNav from "../Components/ProjectNav";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../Components/Button";
+import { useEffect } from "react";
 
 export default function Login() {
   // PRE-FILL FOR DEV PURPOSES
@@ -12,9 +14,19 @@ export default function Login() {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  if (isAuthenticated) {
-    navigate("/layout");
-  }
+  // if (isAuthenticated) {
+  //   useEffect()
+  //   navigate("/layout");
+  // }
+
+  useEffect(
+    function () {
+      if (isAuthenticated) {
+        navigate("/layout");
+      }
+    },
+    [isAuthenticated]
+  );
   return (
     <main className={styles.login}>
       <PageNav />
