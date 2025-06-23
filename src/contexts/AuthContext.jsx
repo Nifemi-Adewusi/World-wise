@@ -23,9 +23,8 @@ function reducer(state, action) {
   switch (action.type) {
     case "login":
       return { ...state, isAuthenticated: true, user: action.payload };
-
-      break;
-
+    case "logout":
+      return { ...state, isAuthenticated: false, user: null };
     default:
       break;
   }
@@ -37,10 +36,12 @@ function AuthProvider({ children }) {
 
   const login = function (email, password) {
     if (email === FAKE_USER.email && password === FAKE_USER.password) {
-      dispatch({ type: "login" });
+      dispatch({ type: "login", payload: FAKE_USER });
     }
   };
-  const logout = function () {};
+  const logout = function () {
+    dispatch({ type: "logout" });
+  };
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
       {children}
