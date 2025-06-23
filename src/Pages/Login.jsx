@@ -22,11 +22,18 @@ export default function Login() {
   useEffect(
     function () {
       if (isAuthenticated) {
-        navigate("/layout");
+        navigate("/layout", { replace: true });
       }
     },
-    [isAuthenticated]
+    [isAuthenticated, navigate]
   );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email && password) {
+      login(email, password);
+    }
+  };
   return (
     <main className={styles.login}>
       <PageNav />
@@ -52,7 +59,7 @@ export default function Login() {
         </div>
 
         <div>
-          <Button type="primary" onClick={() => login(email, password)}>
+          <Button type="primary" onClick={handleSubmit}>
             Login
           </Button>
         </div>
