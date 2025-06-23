@@ -16,6 +16,7 @@ const initialState = {
   currentCity: {},
   currentPosition: [40, 0],
   currentCountry: "",
+  cityName: "",
 };
 function reducer(state, action) {
   switch (action.type) {
@@ -36,6 +37,8 @@ function reducer(state, action) {
       return { ...state, currentCity: action.payload };
     case "updateCurrentPosition":
       return { ...state, currentPosition: action.payload };
+    case "newCity":
+      return { ...state, cityName: action.payload };
     default:
       throw new Error(`Unknown action type: ${action.type}`);
   }
@@ -51,8 +54,14 @@ function Context({ children }) {
   //   useReducer(initialState, reducer);
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { cities, isLoading, currentCity, currentPosition, currentCountry } =
-    state;
+  const {
+    cities,
+    isLoading,
+    currentCity,
+    currentPosition,
+    currentCountry,
+    cityName,
+  } = state;
 
   const deleteCity = async function (id) {
     try {
@@ -174,6 +183,7 @@ function Context({ children }) {
         // setCurrentCountry,
         createCity,
         dispatch,
+        cityName,
       }}
     >
       {children}
