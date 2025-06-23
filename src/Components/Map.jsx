@@ -20,19 +20,17 @@ function Map() {
   const navigate = useNavigate();
   // const [lat, lng] = useUrlPosition();
   // console.log(lat)
-  const { cities, currentPosition } = useCities();
-//  const [searchParams] = useSearchParams();
-//  const lat = searchParams.get("lat");
-//  const lng = searchParams.get("lng");
+  const { cities, currentPosition, currentCity, cityName } = useCities();
+  console.log(currentCity);
+  //  const [searchParams] = useSearchParams();
+  //  const lat = searchParams.get("lat");
+  //  const lng = searchParams.get("lng");
 
-// const [newLat, newLng]
+  // const [newLat, newLng]
 
-const [pos, setPos] = useState([]);
+  const [pos, setPos] = useState([]);
 
-console.log(pos);
-
-
-
+  console.log(pos);
 
   const [position, setPosition] = useState([40, 0] || currentPosition);
   const {
@@ -42,8 +40,6 @@ console.log(pos);
   } = useGeolocation();
 
   useEffect(() => {
-
-
     if (geolocationPosition) {
       // console.log(geolocationPosition);
       setPosition(geolocationPosition);
@@ -52,7 +48,7 @@ console.log(pos);
     //   setPosition(coords);
     // }
 
-    if(pos.length){
+    if (pos.length) {
       setPosition(pos);
     }
   }, [geolocationPosition, pos]);
@@ -96,11 +92,9 @@ console.log(pos);
         ))}
 
         <ChangeCenter position={position} />
-        <DetectClick setPos = {setPos} />
+        <DetectClick setPos={setPos} />
         <Marker position={position}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
+          <Popup>{cityName}</Popup>
         </Marker>
       </MapContainer>
     </div>
@@ -115,15 +109,14 @@ function ChangeCenter({ position }) {
   return null;
 }
 
-function DetectClick({setPos}) {
+function DetectClick({ setPos }) {
   const navigate = useNavigate();
 
   useMapEvents({
     click: (e) => {
       console.log(e);
-      setPos([e.latlng.lat, e.latlng.lng])
+      setPos([e.latlng.lat, e.latlng.lng]);
       navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`);
-
     },
   });
 
