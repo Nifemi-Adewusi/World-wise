@@ -19,7 +19,7 @@ export default function Homepage() {
         </h2>
         {/* <Link to "/layout" className = "cta">Start Tracking Now</Link> */}
 
-        <Link to="/layout" className="cta">
+        <Link to="/login" className="cta">
           Start Tracking Now
         </Link>
       </section>
