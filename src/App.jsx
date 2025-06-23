@@ -9,7 +9,8 @@ import Login from "./Pages/Login";
 import CityList from "./Components/CityList";
 import CountryList from "./Components/CountryList";
 import City from "./Components/City";
-import Form from "./Components/form";
+import Form from "./Components/Form";
+import { AuthProvider } from "./contexts/AuthContext";
 // import { useState, useEffect } from "react";
 
 import { Context } from "./contexts/Context";
@@ -45,22 +46,24 @@ function App() {
   //   }, []);
   return (
     <Context>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="product" element={<Product />} />
-          <Route path="pricing" element={<Pricing />} />
-          <Route path="*" element={<PageNotFound />} />
-          <Route path="login" element={<Login />} />
-          <Route path="layout" element={<AppLayout />}>
-            <Route index element={<Navigate replace to="cities" />} />
-            <Route path="cities" element={<CityList />} />
-            <Route path="cities/:id" element={<City />} />
-            <Route path="countries" element={<CountryList />} />
-            <Route path="form" element={<Form />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="product" element={<Product />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="*" element={<PageNotFound />} />
+            <Route path="login" element={<Login />} />
+            <Route path="layout" element={<AppLayout />}>
+              <Route index element={<Navigate replace to="cities" />} />
+              <Route path="cities" element={<CityList />} />
+              <Route path="cities/:id" element={<City />} />
+              <Route path="countries" element={<CountryList />} />
+              <Route path="form" element={<Form />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </Context>
   );
 }
