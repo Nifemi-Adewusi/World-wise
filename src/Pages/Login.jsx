@@ -3,6 +3,7 @@ import { useState } from "react";
 import PageNav from "../Components/ProjectNav";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Button from "../Components/Button";
 
 export default function Login() {
   // PRE-FILL FOR DEV PURPOSES
@@ -39,7 +40,9 @@ export default function Login() {
         </div>
 
         <div>
-          <button onClick={() => login(email, password)}>Login</button>
+          <Button type="primary" onClick={() => login(email, password)}>
+            Login
+          </Button>
         </div>
       </form>
     </main>
