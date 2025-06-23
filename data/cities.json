@@ -1,18 +1,6 @@
 {
   "cities": [
     {
-      "cityName": "Lisbon",
-      "country": "Portugal",
-      "emoji": "🇵🇹",
-      "date": "2027-10-31T15:59:59.138Z",
-      "notes": "My favorite city so far!",
-      "position": {
-        "lat": 38.727881642324164,
-        "lng": -9.140900099907554
-      },
-      "id": 73930385
-    },
-    {
       "cityName": "Madrid",
       "country": "Spain",
       "emoji": "🇪🇸",
@@ -25,16 +13,40 @@
       "id": 17806751
     },
     {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
+      "cityName": "Dassa-Zoume",
+      "country": "Benin",
+      "date": "2025-06-17T15:56:00.302Z",
+      "notes": "nssns",
       "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
+        "lat": "7.659275328420263",
+        "lng": "2.0832824707031254"
       },
-      "id": 98443197
+      "emoji": "🇧🇯",
+      "id": 98443202
+    },
+    {
+      "cityName": "Moscardon",
+      "country": "Spain",
+      "date": "2025-06-18T02:02:22.250Z",
+      "notes": "great",
+      "position": {
+        "lat": "40.32874883206875",
+        "lng": "-1.5545654296875002"
+      },
+      "emoji": "🇪🇸",
+      "id": 98443205
+    },
+    {
+      "cityName": "Ilaro",
+      "country": "Nigeria",
+      "date": "2024-03-06T02:03:55.000Z",
+      "notes": "nice",
+      "position": {
+        "lat": "6.768261387680118",
+        "lng": "2.9800415039062504"
+      },
+      "emoji": "🇳🇬",
+      "id": 98443206
     }
   ]
 }
