@@ -14,6 +14,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 // import { useState, useEffect } from "react";
 
 import { Context } from "./contexts/Context";
+import ProtectedRoute from "./Pages/ProtectedRoute";
 /* eslint-disable react/prop-types */
 
 // const BASE_URL = "http://localhost:8000/cities";
@@ -54,7 +55,15 @@ function App() {
             <Route path="pricing" element={<Pricing />} />
             <Route path="*" element={<PageNotFound />} />
             <Route path="login" element={<Login />} />
-            <Route path="layout" element={<AppLayout />}>
+            <Route
+              path="layout"
+              element={
+                // Would Only Be Able To Access The Main App If isAuthenticated is set to true.
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate replace to="cities" />} />
               <Route path="cities" element={<CityList />} />
               <Route path="cities/:id" element={<City />} />
