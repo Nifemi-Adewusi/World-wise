@@ -1,11 +1,19 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import { create Context, useContext } from "react";
-import Product from "./Pages/Product";
-import Pricing from "./Pages/Pricing";
-import HomePage from "./Pages/HomePage";
-import PageNotFound from "./Pages/PageNotFound";
-import AppLayout from "./Pages/AppLayout";
-import Login from "./Pages/Login";
+// import Product from "./Pages/Product";
+// import Pricing from "./Pages/Pricing";
+// import HomePage from "./Pages/HomePage";
+// import PageNotFound from "./Pages/PageNotFound";
+// import AppLayout from "./Pages/AppLayout";
+// import Login from "./Pages/Login";
+
+const HomePage = lazy(() => import("./Pages/Homepage"));
+const Product = lazy(() => import("./Pages/Product"));
+const Pricing = lazy(() => import("./Pages/Pricing"));
+const PageNotFound = lazy(() => import("./Pages/PageNotFound"));
+const AppLayout = lazy(() => import("./Pages/AppLayout"));
+const Login = lazy(() => import("./Pages/Login"));
+
 import CityList from "./Components/CityList";
 import CountryList from "./Components/CountryList";
 import City from "./Components/City";
@@ -15,6 +23,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 
 import { Context } from "./contexts/Context";
 import ProtectedRoute from "./Pages/ProtectedRoute";
+import { lazy } from "react";
 /* eslint-disable react/prop-types */
 
 // const BASE_URL = "http://localhost:8000/cities";
