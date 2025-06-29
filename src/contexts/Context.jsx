@@ -5,6 +5,7 @@ import {
   createContext,
   useContext,
   useReducer,
+  useCallback,
 } from "react";
 
 const CitiesContext = createContext();
@@ -104,21 +105,25 @@ function Context({ children }) {
     }
   }, []);
 
-  async function getCity(id) {
-    dispatch({ type: "loading" });
-    try {
-      const res = await fetch(`${BASE_URL}/cities${id}`);
-      const data = await res.json();
-      // setCurrentCity(data);
-      dispatch({ type: "currentCity/set", payload: data });
-      console.log(data);
-    } catch (err) {
-      alert(`${err.message} error occurred`);
-    } finally {
-      // setIsLoading(false);
-      dispatch({ type: "stopLoading" });
-    }
-  }
+  const getCity = useCallback(
+    async function getCity(id) {
+      if (Number(id) === currentCity.id) return;
+      dispatch({ type: "loading" });
+      try {
+        const res = await fetch(`${BASE_URL}/cities${id}`);
+        const data = await res.json();
+        // setCurrentCity(data);
+        dispatch({ type: "currentCity/set", payload: data });
+        console.log(data);
+      } catch (err) {
+        alert(`${err.message} error occurred`);
+      } finally {
+        // setIsLoading(false);
+        dispatch({ type: "stopLoading" });
+      }
+    },
+    [currentCity.id]
+  );
 
   // async function createCity(newCity) {
   //   try {
