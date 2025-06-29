@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import SpinnerFullPage from "./Components/SpinnerFullPage";
 // import { create Context, useContext } from "react";
 // import Product from "./Pages/Product";
 // import Pricing from "./Pages/Pricing";
@@ -23,7 +25,6 @@ import { AuthProvider } from "./contexts/AuthContext";
 
 import { Context } from "./contexts/Context";
 import ProtectedRoute from "./Pages/ProtectedRoute";
-import { lazy } from "react";
 /* eslint-disable react/prop-types */
 
 // const BASE_URL = "http://localhost:8000/cities";
@@ -58,28 +59,30 @@ function App() {
     <Context>
       <AuthProvider>
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="product" element={<Product />} />
-            <Route path="pricing" element={<Pricing />} />
-            <Route path="*" element={<PageNotFound />} />
-            <Route path="login" element={<Login />} />
-            <Route
-              path="layout"
-              element={
-                // Would Only Be Able To Access The Main App If isAuthenticated is set to true.
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Navigate replace to="cities" />} />
-              <Route path="cities" element={<CityList />} />
-              <Route path="cities/:id" element={<City />} />
-              <Route path="countries" element={<CountryList />} />
-              <Route path="form" element={<Form />} />
-            </Route>
-          </Routes>
+          <Suspense fallback={<SpinnerFullPage />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="product" element={<Product />} />
+              <Route path="pricing" element={<Pricing />} />
+              <Route path="*" element={<PageNotFound />} />
+              <Route path="login" element={<Login />} />
+              <Route
+                path="layout"
+                element={
+                  // Would Only Be Able To Access The Main App If isAuthenticated is set to true.
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route index element={<Navigate replace to="cities" />} />
+                <Route path="cities" element={<CityList />} />
+                <Route path="cities/:id" element={<City />} />
+                <Route path="countries" element={<CountryList />} />
+                <Route path="form" element={<Form />} />
+              </Route>
+            </Routes>
+          </Suspense>
         </BrowserRouter>
       </AuthProvider>
     </Context>
